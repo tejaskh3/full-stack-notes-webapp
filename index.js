@@ -7,6 +7,7 @@ const noteRouter = require('./route/notes.routes');
 // app.get("/api/v1", (req, res) => {
 //   res.send("Hello World!");
 // });
+app.use(express.json())
 app.use('/api/v1',noteRouter);
 const port = process.env.PORT || 3000;
 const start = async () => {
