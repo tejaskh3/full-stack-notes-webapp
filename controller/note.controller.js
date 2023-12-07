@@ -1,14 +1,15 @@
 const Note = require("../model/Notes");
 
+// creating a note which belongs to a user.
 const createNote = async (req, res) => {
   try {
-    const { heading, paragraph } = req.body;
+    const { heading, paragraph, userId } = req.body;
     if (!heading || !paragraph) {
       return res
         .status(400)
         .json({ success: false, message: "Please provide all fields." });
     }
-    const newNote = new Note({ heading, paragraph });
+    const newNote = new Note({ heading, paragraph, userId });
     await newNote.save();
     res.status(200).json({
       success: true,
@@ -20,6 +21,7 @@ const createNote = async (req, res) => {
   }
 };
 
+// editing a node that too belongs to a user.
 const editNote = async (req, res) => {
   try {
     const { heading, paragraph } = req.body;
@@ -48,6 +50,7 @@ const editNote = async (req, res) => {
   }
 };
 
+// this also belongs to a user's specific post.
 const deleteNote = async (req, res) => {
   try {
     const noteId = req.params.id;
@@ -69,6 +72,7 @@ const deleteNote = async (req, res) => {
   }
 };
 
+// a post of any user.
 const getNote = async (req, res) => {
   try {
     const noteId = req.params.id;
@@ -86,9 +90,10 @@ const getNote = async (req, res) => {
   }
 };
 
+// deleting all nodes of a user.
 const deleteAllNote = async (req, res) => {
   try {
-    await Note.deleteMany({});
+    await Note.deleteMany({userId: req.body.userId });
     res.status(200).json({ success: true, message: "All notes deleted." });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -97,7 +102,7 @@ const deleteAllNote = async (req, res) => {
 
 const getAllNote = async (req, res) => {
   try {
-    const notes = await Note.find();
+    const notes = await Note.find({ userId: req.body.userId });
     res.status(200).json({ success: true, notes });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

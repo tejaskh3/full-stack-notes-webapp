@@ -9,10 +9,8 @@ const authMiddleware = (req, res, next) => {
       if (err) {
         return res.status(401).json({ success: false, message: "Unauthorized" });
       }
-      req.userId = decoded.userId;
+      req.body.userId = decoded.userId;
       next();
     });
   };
-  module.exports = {
-    authMiddleware,
-  }
+  module.exports = authMiddleware
