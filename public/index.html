@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>notes-app</title>
+  </head>
+  <body>
+    <!-- header starts here -->
+    <header class="header">
+      <h1 class="title">Notes Hub</h1>
+      <nav class="navbar">
+        <p class="nav-item">Login</p>
+        <p class="nav-item">Register</p>
+      </nav>
+    </header>
+    <!-- header ends here -->
+
+    <!-- auth section starts here -->
+    <div class="auth-container">
+      <h3 class="auth-title"></h3>
+      <form class="auth-form">
+        <input
+          type="text"
+          placeholder="Name"
+          class="auth-input auth-input-name"
+        />
+        <input type="email" placeholder="Email" class="auth-input" />
+        <input type="password" placeholder="password" class="auth-input" />
+      </form>
+      <button class="auth-submit-button"></button>
+    </div>
+    <!-- auth section ends here -->
+
+    <!-- notes section starts here -->
+    <main>
+
+      <!-- notes header and for to create notes-->
+      <div class="notes-header">
+        <i class="tooltip">
+          <img src="./assests/delete.png" alt="delete note" class="icons" />
+          <span class="tooltip-text">Delete all notes</span>
+        </i>
+        <i class="tooltip">
+          <img src="./assests/add.png" alt="delete note" class="icons" />
+          <span class="tooltip-text">Add new note</span>
+        </i>
+      </div>
+      <!-- form to create a new note -->
+      <div class="note-form-container modal">
+        <div action="" class="modal-content">
+          <span class="close">&times;</span>
+          <form action="" class="note-form">
+            <input type="text" class="note-heading-input" placeholder="Enter heading of note">
+            <textarea name="note-text" class="note-text-input" cols="32" rows="10"></textarea>
+          </form>
+          <button class="note-submit-button">Sumbmit</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- notes section end here -->
+    <script src="index.js"></script>
+  </body>
+</html>

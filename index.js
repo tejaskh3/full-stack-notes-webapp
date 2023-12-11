@@ -6,6 +6,7 @@ const app = express();
 const connectDB = require("./db/connect");
 const cookieParser = require("cookie-parser");
 const authMiddleware = require('./middleware/auth');
+const path = require('path');
 
 const noteRouter = require('./route/notes.routes');
 const userRouter = require('./route/user.route');
@@ -13,10 +14,14 @@ const userRouter = require('./route/user.route');
 // middlewares
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/api/v1/note', authMiddleware, noteRouter);
 app.use('/api/v1/auth',userRouter);
+app.get('/', async(req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const port = process.env.PORT || 3000;
 const start = async () => {
