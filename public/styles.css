@@ -128,14 +128,17 @@
     border: 1px solid #888;
     width: 60%;
     max-width: 600px; 
+    border-radius: 10px;
+
 }
 
 .close {
-    color: #aaaaaa;
+    color: white;
     float: right;
     top: 0;
     font-size: 28px;
     font-weight: bold;
+    background-color: #f2a127;
 }
 
 .close:hover,
@@ -190,8 +193,17 @@
     .note-heading-input,
     .note-text-input,
     .note-submit-button {
-        max-width: 300px;
+        max-width: 250px;
+    }
+    
+}
+@media (min-width:360px) {
+    .note-submit-button {
+        max-width: 250px;
+        margin-left: 0;
     }
 }
-
+.notes-container{
+    color: white;
+}
 /* notes section end here */

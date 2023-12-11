@@ -25,7 +25,7 @@ const register = async (req, res) => {
 
     const accessToken = generateAccessToken(user._id);
     res.cookie("access_token", accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days in milliseconds
     });
     res
@@ -63,7 +63,7 @@ const login = async (req, res) => {
 
     const accessToken = generateAccessToken(user._id);
     res.cookie("access_token", accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 15 * 24 * 60 * 60 * 1000, 
     });
 
