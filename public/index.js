@@ -48,7 +48,7 @@ const login = async () => {
       return;
     }
 
-    const response = await fetch("http://localhost:3000/api/v1/auth/login", {
+    const response = await fetch("https://full-stack-notes-webapp.vercel.app/api/v1/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const register = async () => {
     return;
   }
   try {
-    const response = await fetch("http://localhost:3000/api/v1/auth/register", {
+    const response = await fetch("https://full-stack-notes-webapp.vercel.app/api/v1/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ const createNote = async () => {
     return;
   }
   try {
-    const response = await fetch("http://localhost:3000/api/v1/note/create", {
+    const response = await fetch("https://full-stack-notes-webapp.vercel.app/api/v1/note/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -194,7 +194,7 @@ noteCreationButton.addEventListener("click", () => {
 // deletion of all noted
 const deleteAllNotes = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/v1/note/", {
+    const response = await fetch("https://full-stack-notes-webapp.vercel.app/api/v1/note/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -218,7 +218,7 @@ deleteAllButton.addEventListener("click", () => {
 // get all notes of a user
 const getAllNotes = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/v1/note/", {
+    const response = await fetch("https://full-stack-notes-webapp.vercel.app/api/v1/note/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -297,7 +297,7 @@ const updateNote = async (noteId) => {
   console.log(noteId);
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/note/${noteId}`,
+      `https://full-stack-notes-webapp.vercel.app/api/v1/note${noteId}`,
       {
         method: "PATCH",
         headers: {
@@ -327,7 +327,7 @@ const updateNote = async (noteId) => {
 const deleteNote = async (noteId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v1/note/${noteId}`,
+      `https://full-stack-notes-webapp.vercel.app/api/v1/note/${noteId}`,
       {
         method: "DELETE",
         headers: {
