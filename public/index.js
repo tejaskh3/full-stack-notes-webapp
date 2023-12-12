@@ -115,22 +115,10 @@ authSubmitButton.addEventListener("click", () => {
   }
 });
 // auth section end here
-const noteHeaderTitle =
-  document.getElementsByClassName("notes-header-title")[0];
-// checking if the user is already login or not
-const accessToken = document.cookie
-  .split("; ")
-  .find((row) => row.startsWith("access_token="));
 
-if (accessToken) {
-  console.log("User is logged in");
-  navbar.style.display = "none";
-} else {
-  console.log("User is not logged in");
-}
 
 // notes section starts here
-
+const noteHeader = document.getElementsByClassName('notes-header')[0];
 const [deleteAllButton, createNoteButton] =
   document.getElementsByClassName("tooltip");
 
@@ -249,20 +237,23 @@ const getAllNotes = async () => {
     console.error("Error during getting all notes of user", error);
   }
 };
-let notes;
+
 const fetchNotes = async () => {
   try {
     const data = await getAllNotes();
     console.log("notes", data.notes);
     notes = data.notes;
+    renderNotes(notes);
   } catch (error) {
     console.error("Error fetching notes:", error);
   }
 };
 fetchNotes();
+
+// dynamiclly rendering no
 const notesContainer = document.getElementsByClassName("notes-container")[0];
 const renderNotes = (notes) => {
-    console.log("rendering notes");
+  console.log("rendering notes");
   notesContainer.innerHTML = "";
   notes.forEach((note) => {
     console.log(note);
@@ -291,29 +282,83 @@ const renderNotes = (notes) => {
     notesContainer.appendChild(noteCard);
   });
 };
-renderNotes();
+
+const openEditModal = (note) => {
+  console.log("reached here");
+  console.log(note._id);
+  headingInput.value = note.heading;
+  noteTextInput.value = note.paragraph;
+  modal.style.display = "block";
+  noteCreationButton.removeEventListener("click", createNote);
+  noteCreationButton.addEventListener("click", () => updateNote(note._id));
+}
+const updateNote = async (noteId) => {
+  console.log("update note function");
+  console.log(noteId);
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/note/${noteId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ heading, paragraph }),
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      alert("Note updated successfully");
+      modal.style.display = "none";
+    } else {
+      const data = await response.json();
+      console.log(`Note update failed: ${data.message}`);
+    }
+  } catch (error) {
+    console.error("Error during note update:", error);
+  }
+  finally{
+    noteCreationButton.removeEventListener("click", () => updateNote);
+    noteCreationButton.addEventListener("click", createNote);
+  }
+}
 // // delete a note
-// const deleteNote = async (noteId) => {
-//   try {
-//     const response = await fetch(`http://localhost:3000/api/v1/note/${noteId}`, {
-//       method: 'DELETE',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       credentials: 'include',
-//     });
+const deleteNote = async (noteId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/note/${noteId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
 
-//     if (response.ok) {
-//       getAllNotes();
-//     } else {
-//       const data = await response.json();
-//       console.log(`Delete note failed: ${data.message}`);
-//     }
-//   } catch (error) {
-//     console.error('Error during note deletion', error);
-//   }
-// };
+    if (response.ok) {
+      alert('deleted');
+      getAllNotes();
+    } else {
+      const data = await response.json();
+      console(`Delete note failed: ${data.message}`);
+    }
+  } catch (error) {
+    console.error("Error during note deletion", error);
+  }
+};
 
-// const openEditModal = (note) => {
-//   console.log('Edit note:', note);
-// };
+const noteHeaderTitle =
+  document.getElementsByClassName("notes-header-title")[0];
+const accessToken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("access_token="));
+
+if (accessToken) {
+  console.log("User is logged in");
+  navbar.style.display = "none";
+} else {
+  console.log("User is not logged in");
+  noteHeader.style.display = "none";
+}

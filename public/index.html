@@ -35,7 +35,6 @@
 
     <!-- notes section starts here -->
     <main>
-
       <!-- notes header and for to create notes-->
       <div class="notes-header">
         <h3 class="notes-header-title"></h3>
@@ -48,18 +47,28 @@
           <span class="tooltip-text">Add new note</span>
         </i>
       </div>
+      <!-- div to dynamically render notes -->
+      <div class="notes-container"></div>
       <!-- form to create a new note -->
       <div class="note-form-container modal">
         <div action="" class="modal-content">
           <span class="close">&times;</span>
           <form action="" class="note-form">
-            <input type="text" class="note-heading-input" placeholder="Enter heading of note">
-            <textarea name="note-text" class="note-text-input" cols="32" rows="10"></textarea>
+            <input
+              type="text"
+              class="note-heading-input"
+              placeholder="Enter heading of note"
+            />
+            <textarea
+              name="note-text"
+              class="note-text-input"
+              cols="32"
+              rows="10"
+            ></textarea>
           </form>
           <button class="note-submit-button">Sumbmit</button>
         </div>
       </div>
-      <div  class="notes-container"></div>
     </main>
     <!-- notes section end here -->
     <script src="index.js"></script>
